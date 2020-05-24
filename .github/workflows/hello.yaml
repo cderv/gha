@@ -1,0 +1,23 @@
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+name: hello
+
+jobs:
+  with_chrome:
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: r-lib/actions/setup-r@master
+      - name: Install dependencies
+        run: |
+          install.packages("pagedown")
+        shell: Rscript {0}
+      - name: find_chrome
+        run: cat(pagedown::find_chrome())
+        shell: Rscript {0}
